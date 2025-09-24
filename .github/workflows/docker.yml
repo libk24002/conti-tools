@@ -15,6 +15,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Get short commit hash
+        id: sha
+        run: |
+          echo "sha=$(git rev-parse --short=7 HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Get current date (YYMMDD)
+        id: date
+        run: |
+          echo "date=$(date +'%y%m%d')" >> $GITHUB_OUTPUT
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -31,4 +41,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/tools:latest-${{ github.sha }}
+          tags: ghcr.io/${{ github.repository_owner }}/tools:v${{ steps.date.outputs.date }}-${{ steps.sha.outputs.sha }}
