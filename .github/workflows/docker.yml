@@ -41,4 +41,6 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/tools:v${{ steps.date.outputs.date }}-${{ steps.sha.outputs.sha }}
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/tools:v${{ steps.date.outputs.date }}-${{ steps.sha.outputs.sha }}
+            ghcr.io/${{ github.repository_owner }}/tools:latest
